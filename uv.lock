@@ -1540,6 +1540,11 @@ dev = [
     { name = "tutor", extra = ["dev"] },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "ruff" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "ruff", marker = "extra == 'dev'" },
@@ -1547,6 +1552,9 @@ requires-dist = [
     { name = "tutor", extras = ["dev"], marker = "extra == 'dev'", specifier = ">=22.0.0" },
 ]
 provides-extras = ["dev"]
+
+[package.metadata.requires-dev]
+dev = [{ name = "ruff", specifier = ">=0.15.14" }]
 
 [[package]]
 name = "twine"

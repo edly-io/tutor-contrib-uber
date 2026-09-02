@@ -1,7 +1,6 @@
 import os
 from glob import glob
 
-import click
 import importlib_resources
 from tutor import hooks
 
@@ -153,8 +152,7 @@ hooks.Filters.ENV_TEMPLATE_TARGETS.add_item(
     ("indigo", "build/openedx/themes"),
 )
 uber_styled_mfes = [
-    "admin-console"
-    "authn",
+    "admin-consoleauthn",
     "authoring",
     "account",
     "communications",
@@ -165,15 +163,17 @@ uber_styled_mfes = [
     "learning",
     "ora-grading",
     "profile",
-    "catalog"
+    "catalog",
 ]
 for mfe in uber_styled_mfes:
-    hooks.Filters.ENV_PATCHES.add_item((
-        f"mfe-dockerfile-post-npm-install-{mfe}",
-        """
+    hooks.Filters.ENV_PATCHES.add_item(
+        (
+            f"mfe-dockerfile-post-npm-install-{mfe}",
+            """
 RUN npm install '@edx/brand@github:@eldy-io/brand-openedx.git#verawood/uber'
         """,
-    ))
+        )
+    )
 
 ########################################
 # PATCH LOADING
