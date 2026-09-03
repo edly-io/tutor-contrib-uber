@@ -152,11 +152,11 @@ hooks.Filters.ENV_TEMPLATE_TARGETS.add_item(
     ("indigo", "build/openedx/themes"),
 )
 uber_styled_mfes = [
-    "admin-consoleauthn",
+    "admin-console",
+    "authn",
     "authoring",
     "account",
     "communications",
-    "learning",
     "discussions",
     "gradebook",
     "learner-dashboard",
@@ -170,7 +170,7 @@ for mfe in uber_styled_mfes:
         (
             f"mfe-dockerfile-post-npm-install-{mfe}",
             """
-RUN npm install '@edx/brand@github:@eldy-io/brand-openedx.git#verawood/uber'
+RUN npm install '@edx/brand@github:@edly-io/brand-openedx.git#verawood/uber'
         """,
         )
     )
