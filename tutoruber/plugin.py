@@ -3,6 +3,7 @@ from glob import glob
 
 import importlib_resources
 from tutor import hooks
+from tutormfe.hooks import FRONTEND_COMPAT_SLOTS, PLUGIN_SLOTS
 
 from .__about__ import __version__
 
@@ -174,6 +175,39 @@ RUN npm install '@edx/brand@github:@edly-io/brand-openedx.git#verawood/uber'
         """,
         )
     )
+
+# Replace the "Powered by tutor | Powered by Open edX" logos shown in the
+# MFE footer (inserted by tutor-indigo's IndigoFooter) with just our own logo.
+with open(
+    str(importlib_resources.files("tutoruber") / "components" / "UberFooter.jsx"),
+    encoding="utf-8",
+) as uber_footer_file:
+    hooks.Filters.ENV_PATCHES.add_item(
+        ("mfe-env-config-runtime-definitions", uber_footer_file.read())
+    )
+
+UBER_FOOTER_SLOT = (
+    "org.openedx.frontend.layout.footer.v1",
+    """
+    {
+        op: PLUGIN_OPERATIONS.Hide,
+        widgetId: 'indigo_footer',
+    },
+    {
+        op: PLUGIN_OPERATIONS.Insert,
+        widget: {
+            id: 'uber_footer',
+            type: DIRECT_PLUGIN,
+            priority: 1,
+            RenderWidget: UberFooter,
+        },
+    },
+""",
+)
+
+for mfe in uber_styled_mfes:
+    PLUGIN_SLOTS.add_item((mfe, *UBER_FOOTER_SLOT))
+FRONTEND_COMPAT_SLOTS.add_item(("all", *UBER_FOOTER_SLOT))
 
 ########################################
 # PATCH LOADING

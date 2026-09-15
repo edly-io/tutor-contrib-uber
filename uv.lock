@@ -1532,6 +1532,7 @@ name = "tutor-contrib-uber"
 source = { editable = "." }
 dependencies = [
     { name = "tutor" },
+    { name = "tutor-mfe" },
 ]
 
 [package.optional-dependencies]
@@ -1548,13 +1549,23 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "ruff", marker = "extra == 'dev'" },
-    { name = "tutor", specifier = "==22.0.1" },
+    { name = "tutor", specifier = ">22.0.0" },
     { name = "tutor", extras = ["dev"], marker = "extra == 'dev'", specifier = ">=22.0.0" },
+    { name = "tutor-mfe", specifier = ">22.0.0" },
 ]
 provides-extras = ["dev"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "ruff", specifier = ">=0.15.14" }]
+
+[[package]]
+name = "tutor-mfe"
+version = "22.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "tutor" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3d/92/0bc8ea4832a23904f57442ae15518c1f8b20ed102a23fd54dcc3c2b98824/tutor_mfe-22.1.0.tar.gz", hash = "sha256:e9cc5d037bcb637a988412a855ec44e85044673582fb70e8ef4f47e018076657", size = 250710, upload-time = "2026-09-07T14:20:50.981Z" }
 
 [[package]]
 name = "twine"
