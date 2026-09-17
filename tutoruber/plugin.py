@@ -176,6 +176,16 @@ RUN npm install '@edx/brand@github:@edly-io/brand-openedx.git#verawood/uber'
         )
     )
 
+
+hooks.Filters.ENV_PATCHES.add_items(
+    [
+        (
+            "openedx-dockerfile-post-python-requirements",
+            "RUN pip install git+https://github.com/edly-io/xblock-sortable.git@0a77cda061e2125497deae5c88bafe92aac0b3ad",
+        )
+    ]
+)
+
 # Replace the "Powered by tutor | Powered by Open edX" logos shown in the
 # MFE footer (inserted by tutor-indigo's IndigoFooter) with just our own logo.
 with open(
