@@ -176,6 +176,18 @@ RUN npm install '@edx/brand@github:@edly-io/brand-openedx.git#verawood/uber'
         )
     )
 
+# Shared `useIsDarkTheme` hook, used by UberFooter and UberStudioFooter below.
+# Registered first so it's defined before either component in the generated
+# MFE config module (though function hoisting means the order doesn't
+# actually matter for correctness).
+with open(
+    str(importlib_resources.files("tutoruber") / "components" / "useIsDarkTheme.jsx"),
+    encoding="utf-8",
+) as use_is_dark_theme_file:
+    hooks.Filters.ENV_PATCHES.add_item(
+        ("mfe-env-config-runtime-definitions", use_is_dark_theme_file.read())
+    )
+
 # Replace the "Powered by tutor | Powered by Open edX" logos shown in the
 # MFE footer (inserted by tutor-indigo's IndigoFooter) with just our own logo.
 with open(
@@ -186,9 +198,33 @@ with open(
         ("mfe-env-config-runtime-definitions", uber_footer_file.read())
     )
 
+with open(
+    str(importlib_resources.files("tutoruber") / "components" / "UberStudioFooter.jsx"),
+    encoding="utf-8",
+) as uber_studio_footer_file:
+    hooks.Filters.ENV_PATCHES.add_item(
+        ("mfe-env-config-runtime-definitions", uber_studio_footer_file.read())
+    )
+
+# Studio's header logo isn't rendered through a themeable plugin slot (see
+# StudioLogoFix.jsx for details), so we inject its dark-mode color-invert fix
+# as a style-only widget into the studio header actions slot, which is the
+# closest slot that's always mounted alongside the header.
+with open(
+    str(importlib_resources.files("tutoruber") / "components" / "StudioLogoFix.jsx"),
+    encoding="utf-8",
+) as studio_logo_fix_file:
+    hooks.Filters.ENV_PATCHES.add_item(
+        ("mfe-env-config-runtime-definitions", studio_logo_fix_file.read())
+    )
+
 UBER_FOOTER_SLOT = (
     "org.openedx.frontend.layout.footer.v1",
     """
+    {
+        op: PLUGIN_OPERATIONS.Hide,
+        widgetId: 'default_contents',
+    },
     {
         op: PLUGIN_OPERATIONS.Hide,
         widgetId: 'indigo_footer',
@@ -208,6 +244,46 @@ UBER_FOOTER_SLOT = (
 for mfe in uber_styled_mfes:
     PLUGIN_SLOTS.add_item((mfe, *UBER_FOOTER_SLOT))
 FRONTEND_COMPAT_SLOTS.add_item(("all", *UBER_FOOTER_SLOT))
+
+PLUGIN_SLOTS.add_item(
+    (
+        "authoring",
+        "org.openedx.frontend.layout.studio_footer.v1",
+        """
+    {
+        op: PLUGIN_OPERATIONS.Hide,
+        widgetId: 'default_contents',
+    },
+    {
+        op: PLUGIN_OPERATIONS.Insert,
+        widget: {
+            id: 'uber_studio_footer',
+            type: DIRECT_PLUGIN,
+            priority: 1,
+            RenderWidget: UberStudioFooter,
+        },
+    },
+""",
+    )
+)
+
+PLUGIN_SLOTS.add_item(
+    (
+        "authoring",
+        "org.openedx.frontend.layout.studio_header_actions.v1",
+        """
+    {
+        op: PLUGIN_OPERATIONS.Insert,
+        widget: {
+            id: 'studio_logo_fix',
+            type: DIRECT_PLUGIN,
+            priority: 1,
+            RenderWidget: StudioLogoFix,
+        },
+    },
+""",
+    )
+)
 
 ########################################
 # PATCH LOADING
