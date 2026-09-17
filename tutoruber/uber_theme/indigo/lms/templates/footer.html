@@ -21,15 +21,6 @@
     height: 24px;
     width: auto;
   }
-  .powered-area .footer-logo.logo-white {
-    display: none;
-  }
-  body.indigo-dark-theme .powered-area .footer-logo {
-    display: none;
-  }
-  body.indigo-dark-theme .powered-area .footer-logo.logo-white {
-    display: block;
-  }
   .powered-area .logo-list li:last-child {
     padding-left: 0;
   }
@@ -37,6 +28,21 @@
     display: none;
   }
 </style>
+<script>
+  (function () {
+    function updateUberFooterLogos() {
+      var isDark = document.body.classList.contains('indigo-dark-theme');
+      document.querySelectorAll('.footer-logo[data-logo-dark]').forEach(function (img) {
+        var src = isDark ? img.getAttribute('data-logo-dark') : img.getAttribute('data-logo-light');
+        if (img.getAttribute('src') !== src) {
+          img.setAttribute('src', src);
+        }
+      });
+    }
+    updateUberFooterLogos();
+    new MutationObserver(updateUberFooterLogos).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  })();
+</script>
 % if uses_bootstrap:
 <div class="wrapper wrapper-footer">
   <footer id="footer" class="tutor-container"
@@ -53,8 +59,7 @@
       <ul class="logo-list">
         <li>
           <a href="${branding_api.get_home_url()}">
-            <img class="footer-logo" src="${static.url('images/logo-footer.png')}" alt="${static.get_platform_name()}" />
-            <img class="footer-logo logo-white" src="${static.url('images/logo-footer-white.png')}" alt="${static.get_platform_name()}" />
+            <img class="footer-logo" src="${static.url('images/logo-footer.png')}" data-logo-light="${static.url('images/logo-footer.png')}" data-logo-dark="${static.url('images/logo-footer-white.png')}" alt="${static.get_platform_name()}" />
           </a>
         </li>
       </ul>
@@ -108,8 +113,7 @@
         <ul class="logo-list">
           <li>
             <a href="${branding_api.get_home_url()}">
-              <img class="footer-logo" src="${static.url('images/logo-footer.png')}" alt="${static.get_platform_name()}" />
-              <img class="footer-logo logo-white" src="${static.url('images/logo-footer-white.png')}" alt="${static.get_platform_name()}" />
+              <img class="footer-logo" src="${static.url('images/logo-footer.png')}" data-logo-light="${static.url('images/logo-footer.png')}" data-logo-dark="${static.url('images/logo-footer-white.png')}" alt="${static.get_platform_name()}" />
             </a>
           </li>
         </ul>

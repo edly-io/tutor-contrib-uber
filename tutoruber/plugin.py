@@ -176,6 +176,18 @@ RUN npm install '@edx/brand@github:@edly-io/brand-openedx.git#verawood/uber'
         )
     )
 
+# Shared `useIsDarkTheme` hook, used by UberFooter and UberStudioFooter below.
+# Registered first so it's defined before either component in the generated
+# MFE config module (though function hoisting means the order doesn't
+# actually matter for correctness).
+with open(
+    str(importlib_resources.files("tutoruber") / "components" / "useIsDarkTheme.jsx"),
+    encoding="utf-8",
+) as use_is_dark_theme_file:
+    hooks.Filters.ENV_PATCHES.add_item(
+        ("mfe-env-config-runtime-definitions", use_is_dark_theme_file.read())
+    )
+
 # Replace the "Powered by tutor | Powered by Open edX" logos shown in the
 # MFE footer (inserted by tutor-indigo's IndigoFooter) with just our own logo.
 with open(

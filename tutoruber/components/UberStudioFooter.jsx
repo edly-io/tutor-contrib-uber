@@ -63,21 +63,10 @@ const UberStudioFooterHelp = () => {
 const UberStudioFooter = () => {
   const config = getConfig();
 
+  const isDarkTheme = useIsDarkTheme();
+
   return (
     <div className="container-xl px-4">
-      <style>
-        {`
-          .studio-footer-logo.logo-white {
-            display: none;
-          }
-          [data-paragon-theme-variant="dark"] .studio-footer-logo {
-            display: none;
-          }
-          [data-paragon-theme-variant="dark"] .studio-footer-logo.logo-white {
-            display: inline;
-          }
-        `}
-      </style>
       <UberStudioFooterHelp />
       <div className="pt-3 x-small d-flex flex-wrap justify-content-between">
         <span>
@@ -107,13 +96,7 @@ const UberStudioFooter = () => {
             className="studio-footer-logo"
             width="120px"
             alt={config.SITE_NAME}
-            src={`${config.LMS_BASE_URL}/static/indigo/images/logo-footer.png`}
-          />
-          <img
-            className="studio-footer-logo logo-white"
-            width="120px"
-            alt={config.SITE_NAME}
-            src={`${config.LMS_BASE_URL}/static/indigo/images/logo-footer-white.png`}
+            src={`${config.LMS_BASE_URL}/static/indigo/images/${isDarkTheme ? 'logo-footer-white.png' : 'logo-footer.png'}`}
           />
         </a>
       </div>

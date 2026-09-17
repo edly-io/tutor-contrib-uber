@@ -2,6 +2,8 @@ const UberFooter = () => {
   const intl = useIntl();
   const config = getConfig();
 
+  const isDarkTheme = useIsDarkTheme();
+
   const uberFooterNavLinks = config.INDIGO_FOOTER_NAV_LINKS || [];
 
   const messages = {
@@ -28,15 +30,6 @@ const UberFooter = () => {
             display: block;
             height: 24px;
             width: auto;
-          }
-          .powered-area .footer-logo.logo-white {
-            display: none;
-          }
-          [data-paragon-theme-variant="dark"] .powered-area .footer-logo {
-            display: none;
-          }
-          [data-paragon-theme-variant="dark"] .powered-area .footer-logo.logo-white {
-            display: block;
           }
           .powered-area .logo-list li:last-child {
             padding-left: 0;
@@ -88,12 +81,7 @@ const UberFooter = () => {
                 <a href={config.LMS_BASE_URL}>
                   <img
                     className="footer-logo"
-                    src={`${config.LMS_BASE_URL}/static/indigo/images/logo-footer.png`}
-                    alt={intl.formatMessage(messages["footer.logo.altText"])}
-                  />
-                  <img
-                    className="footer-logo logo-white"
-                    src={`${config.LMS_BASE_URL}/static/indigo/images/logo-footer-white.png`}
+                    src={`${config.LMS_BASE_URL}/static/indigo/images/${isDarkTheme ? 'logo-footer-white.png' : 'logo-footer.png'}`}
                     alt={intl.formatMessage(messages["footer.logo.altText"])}
                   />
                 </a>
