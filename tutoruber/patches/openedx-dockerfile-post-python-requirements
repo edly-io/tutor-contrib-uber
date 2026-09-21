@@ -1,0 +1,10 @@
+RUN --mount=type=ssh pip install --no-cache-dir \
+    -e git+ssh://git@github.com/edly-io/xblock-sortable.git@0a77cda061e2125497deae5c88bafe92aac0b3ad#egg=sortable-xblock \
+    -e git+ssh://git@github.com/openedx/xblock-in-video-quiz.git@v2.0.1#egg=invideoquiz-xblock \
+    -e git+ssh://git@github.com/edly-io/carousel-xblock.git@uber#egg=edly_carousel-xblock \
+    -e git+ssh://git@github.com/openedx/xblock-image-explorer.git@v3.1.1#egg=xblock-image-explorer \
+    -e git+ssh://git@github.com/edly-io/kwl-xblock.git@uber#egg=kwl-xblock \
+    -e git+ssh://git@github.com/edly-io/flash-card-xblock.git#egg=pakx_flashcard-xblock \
+    -e git+ssh://git@github.com/edly-io/single_page_branching_xblock.git#egg=single_page_branching-xblock \
+    -e git+ssh://git@github.com/edly-io/click-to-reveal-xblock.git#egg=c2r-xblock
+
