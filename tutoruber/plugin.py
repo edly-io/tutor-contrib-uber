@@ -287,6 +287,7 @@ for path in glob(str(importlib_resources.files("tutoruber") / "patches" / "*")):
 # This would allow you to run:
 #   $ tutor uber example-command
 
+
 @hooks.Filters.DOCKER_BUILD_COMMAND.add()
-def enable_ssh_forwarding(cmd):
+def enable_ssh_forwarding(cmd: list[str]) -> list[str]:
     return cmd + ["--ssh", "default"]
