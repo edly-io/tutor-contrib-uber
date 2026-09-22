@@ -35,6 +35,8 @@ hooks.Filters.CONFIG_OVERRIDES.add_items(
     [
         ("PROJECT_NAME", "uber"),
         ("TUTOR_APP", "uber"),
+        ("EDX_PLATFORM_REPOSITORY", "https://github.com/edly-io/edx-platform.git"),
+        ("EDX_PLATFORM_VERSION", "uber"),
     ]
 )
 
