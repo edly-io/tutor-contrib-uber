@@ -8,7 +8,13 @@ RUN --mount=type=ssh pip install --no-cache-dir \
     -e git+https://oauth2:{{GITHUB_PAT}}@github.com/edly-io/single_page_branching_xblock.git#egg=single_page_branching-xblock \
     -e git+https://oauth2:{{GITHUB_PAT}}@github.com/edly-io/click-to-reveal-xblock.git#egg=c2r-xblock \
     -e git+https://oauth2:{{GITHUB_PAT}}@github.com/edly-io/xblock-video-uber.git#egg=video-xblock \
-    -e git+https://oauth2:{{GITHUB_PAT}}@github.com/edly-io/xblock-adventure.git#egg=xblock-adventure \
+    -e git+https://oauth2:{{GITHUB_PAT}}@github.com/edly-io/xblock-mentoring.git#egg=xblock-mentoring \
+    -e git+https://oauth2:{{GITHUB_PAT}}@github.com/edly-io/xblock-ooyala.git#egg=xblock-ooyala-player \
+    -e git+https://oauth2:{{GITHUB_PAT}}@github.com/edly-io/xblock-adventure.git@uber#egg=xblock-adventure \
     -e git+https://oauth2:{{GITHUB_PAT}}@github.com/edly-io/pakx-microlearning-xblock#egg=pakx_microlearning-xblock \
-    -e git+https://oauth2:{{GITHUB_PAT}}@github.com/edly-io/pakx-video-quiz-xblock#egg=pakx_video_quiz-xblock
+    -e git+https://oauth2:{{GITHUB_PAT}}@github.com/edly-io/pakx-video-quiz-xblock@uber#egg=pakx_video_quiz-xblock \
+    -e git+https://oauth2:{{GITHUB_PAT}}@github.com/edly-io/journal_xblock.git@uber#egg=journal_xblock-xblock \
+    -e git+https://oauth2:{{GITHUB_PAT}}@github.com/edly-io/edly-assessment-xblock.git#egg=edly_assessment-xblock \
+    -e git+https://oauth2:{{GITHUB_PAT}}@github.com/edly-io/pakx-assessment-xblock.git#egg=pakx_assessment-xblock
+
 
